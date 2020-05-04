@@ -1,0 +1,23 @@
+version: '3'
+services:
+    testnodeexpress-service:
+      build: .
+      volumes:
+        - .:/usr/app 
+        - /usr/app/node_modules       
+      environment:
+        NODE_ENV: development  
+      ports:
+        - 9030:9030
+      command: npm run start
+      depends_on: 
+        - testmysql
+      links: 
+        - testmysql  
+    testmysql-service:
+      image: mysql:5.7
+      container_name: testmysql
+      environment: 
+        MYSQL_ROOT_PASSWORD: mysql123  
+      ports: 
+        - 3306:3306  
